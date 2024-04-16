@@ -1,0 +1,5 @@
+Chnage C# version to 1.26 because later verisons will break the intellisense.
+Use 'dotnet --list-sdks' to get all the sdks installed.
+Use 'dotnet new globaljson' to list the sdk you want in the project.
+Use 'dotnet --verison' to check to see if the version is correct.
+Use 'dotnet run' to run the code.
