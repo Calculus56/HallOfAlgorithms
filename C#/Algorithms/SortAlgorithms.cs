@@ -2,20 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Globals;
 
 /*
     Used to rearrange lists of elements in an order.
 */
 class SortAlgorithms{
     // Driver code
-    public void SortMain()
+    public void SortMain(int[] arr)
     {
-        int[] arr = { 12, 11, 13, 5, 6, 7 };
-        Console.WriteLine("Given array is");
-        PrintArray(arr);
-        MergeSort ob = new MergeSort();
-        ob.Sort(arr, 0, arr.Length - 1);
+        Console.WriteLine("Given array is [{0}]", string.Join(", ", arr));
+
+        var obj = new object[]{arr, 0, arr.Length - 1};
+        //ob.Sort(arr, 0, arr.Length - 1);
+        Timing.RunMethodAndStopWatch<MergeSort>(new MergeSort(), obj, "Sort");
         Console.WriteLine("\nSorted array is");
+        // The array is changed even though we didn't return anything because arrays are reference types.
         PrintArray(arr);
     }
     class MergeSort {

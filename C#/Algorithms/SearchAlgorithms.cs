@@ -3,44 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
 using System.Reflection;
+using Globals;
 
 /*
     Designed to check and retrieve an element from a data structure.
 */
 class SearchAlgorithms {
-    Stopwatch sw = new Stopwatch();
-    void TimeStopwatch<T>(MethodInfo method, T classInstance, object[] obj, string algorithm){
-        sw.Start();
-        method.Invoke(classInstance, obj);
-        sw.Stop();
-        Console.WriteLine("{0} Elapsed Time={1}\n", algorithm ,sw.Elapsed);
-        sw.Reset();
+
+    public void LinearSearchRun(int[] arr, int value_to_find){
+        Console.Write("Given Array is [{0}]\n", string.Join(", ", arr));
+
+        var obj = new object[]{arr, value_to_find};
+        Timing.RunMethodAndStopWatch<SearchAlgorithms>(new SearchAlgorithms(), obj, "Linear Search");
     }
 
-    void RunMethodAndStopWatch<T>(T instance, object[] items, string method_name){
-        var types = new List<Type>();
-        items.ToList().ForEach(item => types.Add(item.GetType()));
-        MethodInfo method = typeof(T).GetMethod(method_name.Replace(" ", ""), types.ToArray());
-        TimeStopwatch<T>(method, instance, items, method_name);
-    }
-
-    public void LinearSearchRun(int[] vals, int value_to_find){
-        Stopwatch test = new Stopwatch();
-        var obj = new object[]{vals, value_to_find};
-
-        Console.WriteLine("Given Edges is [{0}]\n", string.Join(", ", vals));
-        RunMethodAndStopWatch<SearchAlgorithms>(new SearchAlgorithms(), obj, "Linear Search");
-    }
-
-    public void BinarySearchRun(int vertices, (int, int)[] vals, int start){
-        Console.WriteLine("Given Edges is [{0}]\n", string.Join(", ", vals));
+    public void BinarySearchRun(int vertices, (int, int)[] edges, int start_node){
+        Console.WriteLine("Given Edges is [{0}]\n", string.Join(", ", edges));
         var binary_search = new BinarySearch();
-        var obj = new object[]{start};
+        var obj = new object[]{start_node};
 
-        var graph = binary_search.SetupGraph(vertices, vals);
-        RunMethodAndStopWatch<BinarySearch.Graph>(graph, obj, "DFS");
-        graph = binary_search.SetupGraph(vertices, vals);
-        RunMethodAndStopWatch<BinarySearch.Graph>(graph, obj, "BFS");
+        var graph = binary_search.SetupGraph(vertices, edges);
+        Timing.RunMethodAndStopWatch<BinarySearch.Graph>(graph, obj, "DFS");
+        graph = binary_search.SetupGraph(vertices, edges);
+        Timing.RunMethodAndStopWatch<BinarySearch.Graph>(graph, obj, "BFS");
     }
 
     /*
@@ -96,7 +81,8 @@ class SearchAlgorithms {
             */
             public void DFS(int v) {
                 bool[] visited = new bool[V];
-
+                
+                Console.Write("Visted Order: ");
                 DFSUtil(v, visited);
                 Console.WriteLine();
             }
@@ -114,7 +100,8 @@ class SearchAlgorithms {
                 // Mark the current node as visited and enqueue it
                 visited[startNode] = true;
                 queue.Enqueue(startNode);
-        
+
+                Console.Write("Visted Order: ");
                 // Iterate over the queue
                 while (queue.Count != 0) {
                     // Dequeue a vertex from queue and print it
