@@ -1,0 +1,24 @@
+{
+  "if": {"workbench.colorTheme": "[Deepdark]"},
+  "editor.tokenColorCustomizations": {
+      "textMateRules": [
+        {
+          "scope": [
+              "keyword.type",
+              "keyword.other.directive",
+              "keyword.operator",
+          ],
+          "settings": {
+              "foreground": "#FFFB2A",
+          }
+        },
+        
+        {
+          "scope": "constant.numeric",
+          "settings": {
+              "foreground": "#69F0AE",
+          }
+        },
+      ]
+  }
+}

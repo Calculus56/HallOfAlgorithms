@@ -31,7 +31,8 @@ class Driver{
     }
 
     static void RunSortAlg(){
-        SortAlgorithms sort_alg = new SortAlgorithms();
-        sort_alg.SortMain(new int[]{ 12, 11, 13, 5, 6, 7 });
+        SortAlgorithms sort_alg = new SortAlgorithms(new int[]{ 38, 27, 43, 15, 45, 10});
+        // sort_alg.MergeSortRun();
+        sort_alg.QuickSortRun();
     }
 }
